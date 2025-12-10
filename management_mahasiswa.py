@@ -105,25 +105,10 @@ class DataManager:
         if 0 <= index < len(self._data):
             self._current_index = index
     
-def tambah(self, mahasiswa: Mahasiswa):
-    """Menambahkan mahasiswa ke array"""
-    self._data.append(mahasiswa)
-    # Auto-save setelah tambah
-    self.simpan_ke_file()
-
-def edit(self, index: int, nama: str, nim: str):
-    """Mengedit data mahasiswa"""
-    if 0 <= index < len(self._data):
-        self._data[index].nama = nama
-        self._data[index].nim = nim
-        # Auto-save setelah edit
-        self.simpan_ke_file()
-
-def hapus(self, index: int):
-    """Menghapus data mahasiswa"""
-    if 0 <= index < len(self._data):
-        del self._data[index]
-        # Auto-save setelah hapus
+    def tambah(self, mahasiswa: Mahasiswa):
+        """Menambahkan mahasiswa ke array"""
+        self._data.append(mahasiswa)
+        # Auto-save setelah tambah
         self.simpan_ke_file()
     
     def get_by_index(self, index: int) -> Optional[Mahasiswa]:
@@ -146,11 +131,15 @@ def hapus(self, index: int):
         if 0 <= index < len(self._data):
             self._data[index].nama = nama
             self._data[index].nim = nim
+            # Auto-save setelah edit
+            self.simpan_ke_file()
     
     def hapus(self, index: int):
         """Menghapus data mahasiswa"""
         if 0 <= index < len(self._data):
             del self._data[index]
+            # Auto-save setelah hapus
+            self.simpan_ke_file()
     
     def simpan_ke_file(self):
         """Menyimpan data ke file JSON"""
@@ -554,30 +543,30 @@ class AplikasiManajemenMahasiswa:
         Aplikasi sudah berisi data 31 mahasiswa contoh
         """)
     
-def _show_main_content(self):
-    """Menampilkan konten utama berdasarkan menu yang dipilih"""
-    try:
-        menu = st.session_state.get('current_menu', '🏠 Dashboard')
-        
-        if menu == "🏠 Dashboard":
-            self._show_dashboard()
-        elif menu == "➕ Input Data":
-            self._show_input_form()
-        elif menu == "✏️ Edit Data":
-            self._show_edit_form()
-        elif menu == "🔍 Pencarian":
-            self._show_search()
-        elif menu == "📊 Pengurutan":
-            self._show_sorting()
-        elif menu == "🗑️ Hapus Data":
-            self._show_delete()
-        elif menu == "📁 Ekspor/Impor":
-            self._show_export_import()
-        elif menu == "ℹ️ Time Complexity":
-            self._show_time_complexity()
-    except Exception as e:
-        st.error(f"Terjadi error: {str(e)}")
-        st.info("Silakan refresh halaman atau coba lagi")
+    def _show_main_content(self):
+        """Menampilkan konten utama berdasarkan menu yang dipilih"""
+        try:
+            menu = st.session_state.get('current_menu', '🏠 Dashboard')
+            
+            if menu == "🏠 Dashboard":
+                self._show_dashboard()
+            elif menu == "➕ Input Data":
+                self._show_input_form()
+            elif menu == "✏️ Edit Data":
+                self._show_edit_form()
+            elif menu == "🔍 Pencarian":
+                self._show_search()
+            elif menu == "📊 Pengurutan":
+                self._show_sorting()
+            elif menu == "🗑️ Hapus Data":
+                self._show_delete()
+            elif menu == "📁 Ekspor/Impor":
+                self._show_export_import()
+            elif menu == "ℹ️ Time Complexity":
+                self._show_time_complexity()
+        except Exception as e:
+            st.error(f"Terjadi error: {str(e)}")
+            st.info("Silakan refresh halaman atau coba lagi")
     
     def _show_dashboard(self):
         """Menampilkan dashboard"""
